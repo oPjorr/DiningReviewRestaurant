@@ -1,0 +1,19 @@
+[project]
+name = "DiningReviewRestaurant"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Paulo Rolinski", email = "paulorolinski.ifc@gmail.com"},
+]
+dependencies = []
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "y"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+distribution = true
