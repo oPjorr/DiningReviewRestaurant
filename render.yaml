@@ -1,9 +1,3 @@
-databases:
-  - name: diningreviewrestaurant
-    plan: free
-    databaseName: diningreviewrestaurant
-    user: diningreviewrestaurant
-
 services:
   - type: web
     plan: free
@@ -12,10 +6,6 @@ services:
     buildCommand: "cd back-end && ./build.sh"
     startCommand: "cd back-end && python -m gunicorn core.asgi:application -k uvicorn.workers.UvicornWorker"
     envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: diningreviewrestaurant
-          property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: WEB_CONCURRENCY
@@ -25,8 +15,8 @@ services:
     plan: free
     name: diningreviewrestaurant-front
     runtime: node
-    buildCommand: "cd front-end && pnpm install && pnpm run build"
-    startCommand: "cd front-end && pnpm run preview --host 0.0.0.0"
+    buildCommand: "cd front-end && npm ci && npm run build"
+    startCommand: "cd front-end && npm run preview --host 0.0.0.0"
     envVars:
       - key: VITE_API_URL
         value: "https://diningreviewrestaurant-api.onrender.com"
