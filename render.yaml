@@ -11,15 +11,6 @@ services:
     runtime: python
     buildCommand: "cd back-end && ./build.sh"
     startCommand: "cd back-end && python -m gunicorn core.asgi:application -k uvicorn.workers.UvicornWorker"
-    envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: diningreviewrestaurant-db
-          property: connectionString
-      - key: SECRET_KEY
-        generateValue: true
-      - key: WEB_CONCURRENCY
-        value: 4
 
   - type: web
     plan: free
