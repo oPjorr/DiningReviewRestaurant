@@ -1,9 +1,11 @@
 <template>
-  <div>
-    <h1>Reviews</h1>
-    <ul>
-      <li v-for="review in reviews" :key="review.id">
-        {{ review.user}}: {{ review.comment }} ({{ review.rating }} estrelas)
+  <div class="reviews-container">
+    <h1 class="title">Reviews</h1>
+    <ul class="reviews-list">
+      <li v-for="review in reviews" :key="review.id" class="review-item">
+        <span class="review-user">{{ review.user }}</span>: 
+        <span class="review-comment">{{ review.comment }}</span> 
+        <span class="review-rating"> ({{ review.rating }} estrelas)</span>
       </li>
     </ul>
   </div>
@@ -33,3 +35,49 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.reviews-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 5%;
+}
+
+.title {
+  font-size: 2em;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.reviews-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.review-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.review-user {
+  font-weight: bold;
+  color: #555;
+}
+
+.review-comment {
+  color: #666;
+}
+
+.review-rating {
+  color: #f39c12;
+}
+</style>
