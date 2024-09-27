@@ -15,8 +15,8 @@ services:
     plan: free
     name: diningreviewrestaurant-front
     runtime: node
-    buildCommand: "cd front-end && npm ci && npm run build"
-    startCommand: "cd front-end && npm run preview --host 0.0.0.0"
+    buildCommand: "cd front-end/DiningReviewRestaurant && npm ci && npm run build"
+    startCommand: "cd front-end/DiningReviewRestaurant && npm run preview --host 0.0.0.0"
     envVars:
       - key: VITE_API_URL
         value: "https://diningreviewrestaurant-api.onrender.com"
