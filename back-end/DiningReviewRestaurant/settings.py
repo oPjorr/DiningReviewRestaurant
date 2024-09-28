@@ -14,7 +14,6 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
-import dj_database_url
 from decouple import config
 
 # Load and define envVars to create super user
