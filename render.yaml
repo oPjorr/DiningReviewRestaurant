@@ -4,7 +4,7 @@ services:
     name: diningreviewrestaurant-api
     runtime: python
     buildCommand: "cd back-end && ./build.sh"
-    startCommand: "cd back-end && python -m gunicorn core.asgi:application -k uvicorn.workers.UvicornWorker"
+    startCommand: "cd back-end && python -m gunicorn DiningReviewRestaurant.asgi:application -k uvicorn.workers.UvicornWorker"
     envVars:
       - key: SECRET_KEY
         generateValue: true
