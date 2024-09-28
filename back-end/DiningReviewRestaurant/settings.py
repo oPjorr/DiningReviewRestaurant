@@ -14,17 +14,15 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-from decouple import config
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Carregar o arquivo .env
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 # Load and define envVars to create super user
-os.environ["DJANGO_SUPERUSER_USERNAME"] = config("DJANGO_SUPERUSER_USERNAME")
-os.environ["DJANGO_SUPERUSER_EMAIL"] = config("DJANGO_SUPERUSER_EMAIL")
-os.environ["DJANGO_SUPERUSER_PASSWORD"] = config("DJANGO_SUPERUSER_PASSWORD")
+os.environ["DJANGO_SUPERUSER_USERNAME"] = os.getenv("DJANGO_SUPERUSER_USERNAME")
+os.environ["DJANGO_SUPERUSER_EMAIL"] = os.getenv("DJANGO_SUPERUSER_EMAIL")
+os.environ["DJANGO_SUPERUSER_PASSWORD"] = os.getenv("DJANGO_SUPERUSER_PASSWORD")
 
 
 
@@ -32,10 +30,10 @@ os.environ["DJANGO_SUPERUSER_PASSWORD"] = config("DJANGO_SUPERUSER_PASSWORD")
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", default=True, cast=bool)
+DEBUG = os.getenv("DEBUG", default=True, cast=bool)
 
 ALLOWED_HOSTS = ["*"]
 
