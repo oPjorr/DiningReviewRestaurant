@@ -12,18 +12,19 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from pathlib import Path
+from decouple import config
 from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Caminho para o diretório raiz do projeto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Carregar o arquivo .env
 load_dotenv(os.path.join(BASE_DIR, '.env'))
-# Load and define envVars to create super user
-os.environ["DJANGO_SUPERUSER_USERNAME"] = os.getenv("DJANGO_SUPERUSER_USERNAME")
-os.environ["DJANGO_SUPERUSER_EMAIL"] = os.getenv("DJANGO_SUPERUSER_EMAIL")
-os.environ["DJANGO_SUPERUSER_PASSWORD"] = os.getenv("DJANGO_SUPERUSER_PASSWORD")
 
+# Agora você pode acessar as variáveis de ambiente
+os.environ["DJANGO_SUPERUSER_USERNAME"] = config("DJANGO_SUPERUSER_USERNAME", default="default_username")
+os.environ["DJANGO_SUPERUSER_EMAIL"] = config("DJANGO_SUPERUSER_EMAIL", default="default_email@example.com")
+os.environ["DJANGO_SUPERUSER_PASSWORD"] = config("DJANGO_SUPERUSER_PASSWORD", default="default_password")
 
 
 # Quick-start development settings - unsuitable for production
