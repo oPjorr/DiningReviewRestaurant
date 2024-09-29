@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 from decouple import config
 from dotenv import load_dotenv
+import dj_database_url
 
 # Caminho para o diretório raiz do projeto
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -56,6 +57,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -92,10 +94,10 @@ WSGI_APPLICATION = 'DiningReviewRestaurant.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'default': dj_database_url.config(
+            default='postgresql://postgres:postgres@localhost:5432/mysite',
+            conn_max_age=600
+        )
 }
 
 
@@ -133,7 +135,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
