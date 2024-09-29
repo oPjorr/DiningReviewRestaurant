@@ -12,4 +12,6 @@ python manage.py collectstatic --no-input
 python manage.py migrate
 
 # Create your super user (check your env vars)
-python manage.py createsuperuser --no-input
+if [ $(echo "from django.contrib.auth.models import User; print(User.objects.filter(username='nome_do_superuser').exists())" | python manage.py shell) == "False" ]; then
+    python manage.py createsuperuser --no-input
+fi
