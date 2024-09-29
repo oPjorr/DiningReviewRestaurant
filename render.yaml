@@ -1,22 +1,22 @@
-services:
-  - type: web
-    plan: free
-    name: diningreviewrestaurant-api
-    runtime: python
-    buildCommand: "cd back-end && ./build.sh"
-    startCommand: "cd back-end && python -m gunicorn DiningReviewRestaurant.asgi:application -k uvicorn.workers.UvicornWorker --lifespan on"
-    envVars:
-      - key: SECRET_KEY
-        generateValue: true
-      - key: WEB_CONCURRENCY
-        value: 4
+  services:
+    - type: web
+      plan: free
+      name: diningreviewrestaurant-api
+      runtime: python
+      buildCommand: "cd back-end && ./build.sh"
+      startCommand: "cd back-end && which python && python -m gunicorn DiningReviewRestaurant.asgi:application -k uvicorn.workers.UvicornWorker"
+      envVars:
+        - key: SECRET_KEY
+          generateValue: true
+        - key: WEB_CONCURRENCY
+          value: 4
 
-  - type: web
-    plan: free
-    name: diningreviewrestaurant-front
-    runtime: node
-    buildCommand: "cd front-end/DiningReviewRestaurant && npm ci && npm run build"
-    startCommand: "cd front-end/DiningReviewRestaurant && npm run preview -- --host 0.0.0.0"
-    envVars:
-      - key: VITE_API_URL
-        value: "https://diningreviewrestaurant-api.onrender.com"
+    - type: web
+      plan: free
+      name: diningreviewrestaurant-front
+      runtime: node
+      buildCommand: "cd front-end/DiningReviewRestaurant && npm ci && npm run build"
+      startCommand: "cd front-end/DiningReviewRestaurant && npm run preview -- --host 0.0.0.0"
+      envVars:
+        - key: VITE_API_URL
+          value: "https://diningreviewrestaurant-api.onrender.com"
