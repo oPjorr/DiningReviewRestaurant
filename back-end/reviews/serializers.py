@@ -1,22 +1,39 @@
 from rest_framework import serializers
-from .models import Restaurant, Dinner, Review
+from .models import Restaurant, Dinner, Review, Reviewer
+from django.contrib.auth.models import User
 
 class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
-        fields = ['id', 'name', 'address', 'phone_number', 'website']
+        fields = '__all__'
 
 class DinnerSerializer(serializers.ModelSerializer):
-    restaurant = RestaurantSerializer(read_only=True)
-
     class Meta:
         model = Dinner
-        fields = ['id', 'restaurant', 'name', 'description', 'price', 'date']
+        fields = '__all__'
 
 class ReviewSerializer(serializers.ModelSerializer):
-    dinner = DinnerSerializer(read_only=True)
-    user = serializers.StringRelatedField(read_only=True)
+    reviewer_name = serializers.CharField(source='reviewer.user.username', read_only=True)
 
     class Meta:
         model = Review
-        fields = ['id', 'dinner', 'user', 'rating', 'comment', 'date_posted']
+        fields = ['id', 'rating', 'comment', 'date_posted', 'dinner', 'reviewer_name']
+
+class ReviewerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reviewer
+        fields = '__all__'
+
+class RegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'password', 'email')
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            username=validated_data['username'],
+            email=validated_data['email'],
+            password=validated_data['password']
+        )
+        return user

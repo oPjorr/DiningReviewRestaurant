@@ -5,7 +5,7 @@ import Register from './components/Register.vue';
 
 const routes = [
   {
-    path: '/',
+    path: '/reviews',
     name: 'ReviewList',
     component: ReviewList,
   },

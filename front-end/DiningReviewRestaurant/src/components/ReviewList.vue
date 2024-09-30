@@ -1,14 +1,15 @@
 <template>
-  <div class="reviews-container">
+  <div class="reviews-container" v-if="isAuthenticated">
     <h1 class="title">Reviews</h1>
     <ul class="reviews-list">
       <li v-for="review in reviews" :key="review.id" class="review-item">
-        <span class="review-user">{{ review.user }}</span>: 
+        <span class="review-user">{{ review.reviewer_name }}</span>: 
         <span class="review-comment">{{ review.comment }}</span> 
         <span class="review-rating"> ({{ review.rating }} estrelas)</span>
       </li>
     </ul>
   </div>
+  <div v-else><p>Por favor, faça login para ver o conteúdo exclusivo.</p></div>
 </template>
 
 <script>
@@ -18,10 +19,18 @@ export default {
   data() {
     return {
       reviews: [],
+      isAuthenticated: false,
     };
   },
   created() {
     this.fetchReviews();
+    const token = localStorage.getItem('token');
+    console.log(this.isAuthenticated)
+    console.log(token);
+        if (token) {
+            this.isAuthenticated = true;
+            console.log(this.isAuthenticated);
+        }
   },
   methods: {
     async fetchReviews() {

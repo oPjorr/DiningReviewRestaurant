@@ -18,16 +18,20 @@ class Dinner(models.Model):
     date = models.DateField()
 
     def __str__(self):
-        return f"{self.name} at {self.restaurant.name}"
+        return f"{self.name} em {self.restaurant.name}"
+
+class Reviewer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
 
 class Review(models.Model):
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='reviews')
     dinner = models.ForeignKey(Dinner, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
     comment = models.TextField()
     date_posted = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Review by {self.user.username} for {self.dinner.name}"
-
+        return f"Review por {self.reviewer.user.username} - {self.dinner.name}"
