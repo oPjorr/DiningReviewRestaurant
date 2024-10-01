@@ -20,9 +20,10 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = ['id', 'rating', 'comment', 'date_posted', 'dinner', 'reviewer_name']
 
 class ReviewerSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(source='user.username')
     class Meta:
         model = Reviewer
-        fields = '__all__'
+        fields = ['id', 'user']
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
