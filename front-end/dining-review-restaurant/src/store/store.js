@@ -13,7 +13,7 @@
         const token = localStorage.getItem('token');
         if (token) {
           try {
-            const response = await axios.post('http://localhost:8000/api/token/verify/', { token });
+            const response = await axios.post('https://diningreviewrestaurant-api.onrender.com/api/token/verify/', { token });
             this.isAuthenticated = true;
             console.log('Token verificado com sucesso');
             await this.fetchUserInfo();
@@ -29,7 +29,7 @@
       
       async fetchUserInfo() {
         try {
-          const response = await axios.get('http://localhost:8000/api/user/', {
+          const response = await axios.get('https://diningreviewrestaurant-api.onrender.com/api/user/', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
@@ -44,7 +44,7 @@
       async fetchReviews() {
         if (this.isAuthenticated) {
           try {
-            const response = await axios.get('http://localhost:8000/reviews/', {
+            const response = await axios.get('https://diningreviewrestaurant-api.onrender.com/reviews/', {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
               },

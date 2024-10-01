@@ -32,7 +32,7 @@
   
       const login = async () => {
   try {
-    const response = await axios.post('http://localhost:8000/api/token/', {
+    const response = await axios.post('https://diningreviewrestaurant-api.onrender.com/api/token/', {
       username: username.value,
       password: password.value,
     });
